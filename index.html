@@ -1,7 +1,25 @@
+<!-- 
+  Copyright © [2023] [Dustin_Chen]. All rights reserved.
+  Author: Dustin Chen
+  Email:  Dustin_Chen@compal.com or chuhpsdustin@gmail.com
+-->  
 <!DOCTYPE html>
 <html>
 
 <head>
+
+  <style>
+    body {
+      font-size: 16px;
+	  font-family: 'Roboto', sans-serif;
+    }
+	
+    pre {
+        font-size: 15px; 
+        font-family: 'Roboto', sans-serif; 
+    }	
+  </style>
+  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wireshark supportedBandListNR Parser</title>
@@ -80,12 +98,43 @@
     <p style="margin: 0;">Author: Dustin_Chen, email: <a href="mailto:Dustin_Chen@compal.com"
             style="line-height: 1;">Dustin_Chen@compal.com</a> or <a href="mailto:chuhpsdustin@gmail.com"
             style="line-height: 1;">chuhpsdustin@gmail.com</a></p>
-    <p>&nbsp;&nbsp;&nbsp;(Rule1) For FR1, the bits in channelBWs-DL starting from the leftmost bit indicate 5, 10, 15, 20, 25, 30, 40, 50,
-        60 and 80MHz</p>
-    <p><b>● Open f1_tcp.pcap with Wireshark, search for "supportedBandListNR", right-click "Expand Subtrees", right-click "Copy->All Visiable Selected Tree Items", paste it below, and parse:</b>    </p>
-    <textarea id="inputText" rows="10" cols="70" placeholder="Paste your text here"></textarea><br>
-    <button onclick="parseText()">Parse Text</button>
-    <pre id="output"></pre>
+    
+  <ul>
+    <li>
+      <strong>Spec</strong>
+      <ul>
+        <li>
+          <p>For FR1, the bits in channelBWs-DL starting from the leftmost bit indicate 5, 10, 15, 20, 25, 30, 40, 50, 60 and 80MHz</p>
+        </li>
+      </ul>
+    </li>	
+    <li>
+      <strong>How to use</strong>
+      <ul>
+        <li>
+          1. Open f1_tcp.pcap with Wireshark
+		  </li>
+        <li>
+          2. search for "supportedBandListNR"
+		</li>		
+        <li>
+          3. right-click "Expand Subtrees"
+	    </li>
+		<li>
+          4. right-click "Copy->All Visible Selected Tree Items"
+        </li>
+		<li>
+          5. paste it below
+        </li>
+		<li>
+          6. parse:
+		</li>
+		    <textarea id="inputText" rows="10" cols="70" placeholder="Paste your text here"></textarea><br>
+		    <button onclick="parseText()">Parse Text</button>
+		    <pre id="output"></pre>
+      </ul>
+    </li>		
+
 </body>
 
 </html>

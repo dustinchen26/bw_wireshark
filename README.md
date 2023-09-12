@@ -1,7 +1,7 @@
 # Wireshark channelBWs Parser
 online calculator: https://dustinchen26.github.io/bw_wireshark
 
-## Usage
+## Spce
 ● Usage: Parse Wireshark UeCapabilityInformation NR supported channelBWs
 ```
 > ref: 3GPP spec ETSI TS 138 306
@@ -12,9 +12,17 @@ online calculator: https://dustinchen26.github.io/bw_wireshark
 > ex: Compal UE mifi n78 SCS=30 support BW 20, 30, 40, 50, 60, 70, 80, 90, 100
 ```
 
-## Example input
-● Open f1_tcp.pcap with Wireshark, search for "supportedBandListNR", right-click "Expand Subtrees", right-click "Copy->All Visiable Selected Tree Items", paste it below, and parse
+## How to use
 ```
+1. Open f1_tcp.pcap with Wireshark
+2. search for "supportedBandListNR"
+3. right-click "Expand Subtrees"
+4. right-click "Copy->All Visible Selected Tree Items"
+5. paste it below
+6. parse:
+
+【Example】 
+【Input】
 bandNR: 48
 channelBWs-DL: fr1 (0)
     fr1
@@ -27,10 +35,10 @@ channelBWs-UL: fr1 (0)
         scs-30kHz: 73c0 [bit length 10, 6 LSB pad bits, 0111 0011  11.. .... decimal value 463]
         scs-60kHz: 0000 [bit length 10, 6 LSB pad bits, 0000 0000  00.. .... decimal value 0]
 pucch-SpatialRelInfoMAC-CE: supported (0)
-```
 
-## Output
-```
+
+【Output】
+
 bandNR: 48
 channelBWs-DL
     scs-15kHz: 0000000000 Supported Bandwidths (scs-15kHz):  MHz
