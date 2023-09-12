@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NR SA ChannelBW Parser</title>
+
+    <script>
+        function parseText() {
+            const inputText = document.getElementById('inputText').value;
+
+            const pattern =
+                /bandNR: (\d+)[\s\S]*?channelBWs-DL\s*[\s\S]*?scs-15kHz: ([0-9a-fA-F\s]+)[\s\S]*?scs-30kHz: ([0-9a-fA-F\s]+)[\s\S]*?scs-60kHz: ([0-9a-fA-F\s]+)/g;
+            let outputText = '';
+
+            const channelBWs = [5, 10, 15, 20, 25, 30, 40, 50, 60, 80]; // in MHz
+
+            const convertHexToBinary = (hex) => {
+                let binary = '';
+                for (let i = 0; i < hex.length; i++) {
+                    const digit = parseInt(hex[i], 16).toString(2).padStart(4, '0');
+                    binary += digit;
+                }
+                return binary.slice(0, 10); // Keep the first 10 bits
+            };
+            let match;
+            while ((match = pattern.exec(inputText)) !== null) {
+                const bandNR = match[1];
+                const scs15kHzHex = match[2].replace(/\s/g, '');
+                const scs30kHzHex = match[3].replace(/\s/g, '');
+                const scs60kHzHex = match[4].replace(/\s/g, '');
+
+                const scs15kHzBinary = convertHexToBinary(scs15kHzHex);
+                const scs30kHzBinary = convertHexToBinary(scs30kHzHex);
+                const scs60kHzBinary = convertHexToBinary(scs60kHzHex);
+
+                const supportedBWs15kHz = [];
+                const supportedBWs30kHz = [];
+                const supportedBWs60kHz = [];
+
+                for (let j = 0; j < channelBWs.length; j++) {
+                    if (scs15kHzBinary.charAt(j) === '1') {
+                        supportedBWs15kHz.push(channelBWs[j]);
+                    }
+                    if (scs30kHzBinary.charAt(j) === '1') {
+                        supportedBWs30kHz.push(channelBWs[j]);
+                    }
+                    if (scs60kHzBinary.charAt(j) === '1') {
+                        supportedBWs60kHz.push(channelBWs[j]);
+                    }
+                }
+
+                outputText += `bandNR: ${bandNR}\n`;
+                outputText += `channelBWs-DL\n`;
+                outputText +=
+                    `    scs-15kHz: ${scs15kHzBinary} Supported Bandwidths (scs-15kHz): ${supportedBWs15kHz.join(', ')} MHz\n`;
+                outputText +=
+                    `    scs-30kHz: ${scs30kHzBinary} Supported Bandwidths (scs-30kHz): ${supportedBWs30kHz.join(', ')} MHz\n`;
+                outputText +=
+                    `    scs-60kHz: ${scs60kHzBinary} Supported Bandwidths (scs-60kHz): ${supportedBWs60kHz.join(', ')} MHz\n`;
+                outputText += `channelBWs-UL\n`;
+                outputText +=
+                    `    scs-15kHz: ${scs15kHzBinary} Supported Bandwidths (scs-15kHz): ${supportedBWs15kHz.join(', ')} MHz\n`;
+                outputText +=
+                    `    scs-30kHz: ${scs30kHzBinary} Supported Bandwidths (scs-30kHz): ${supportedBWs30kHz.join(', ')} MHz\n`;
+                outputText +=
+                    `    scs-60kHz: ${scs60kHzBinary} Supported Bandwidths (scs-60kHz): ${supportedBWs60kHz.join(', ')} MHz\n\n`;
+            }
+
+
+            const output = document.getElementById('output');
+            output.innerText = outputText.trim() || 'Parsing failed. Make sure the input follows the specified format.';
+        }
+    </script>
+</head>
+
+<body>
+    <h1>NR SA channelBWs Parser</h1>
+    <p style="margin: 0;">Author: Dustin_Chen, email: <a href="mailto:Dustin_Chen@compal.com"
+            style="line-height: 1;">Dustin_Chen@compal.com</a> or <a href="mailto:chuhpsdustin@gmail.com"
+            style="line-height: 1;">chuhpsdustin@gmail.com</a></p>
+    <p>&nbsp;&nbsp;&nbsp;(Rule1) For FR1, the bits in channelBWs-DL starting from the leftmost bit indicate 5, 10, 15, 20, 25, 30, 40, 50,
+        60 and 80MHz</p>
+    <p><b>● Wireshark "Expand All", and Paste the NR UeCapabilityInformation below(Including "channelBWs"):</b>    </p>
+    <textarea id="inputText" rows="10" cols="70" placeholder="Paste your text here"></textarea><br>
+    <button onclick="parseText()">Parse Text</button>
+    <pre id="output"></pre>
+</body>
+
+</html>
