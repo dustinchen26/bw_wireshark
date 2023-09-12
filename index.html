@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wireshark NR channelBWs Parser</title>
+    <title>Wireshark supportedBandListNR Parser</title>
 
     <script>
         function parseText() {
@@ -76,13 +76,13 @@
 </head>
 
 <body>
-    <h1>Wireshark NR channelBWs Parser</h1>
+    <h1>Wireshark supportedBandListNR Parser</h1>
     <p style="margin: 0;">Author: Dustin_Chen, email: <a href="mailto:Dustin_Chen@compal.com"
             style="line-height: 1;">Dustin_Chen@compal.com</a> or <a href="mailto:chuhpsdustin@gmail.com"
             style="line-height: 1;">chuhpsdustin@gmail.com</a></p>
     <p>&nbsp;&nbsp;&nbsp;(Rule1) For FR1, the bits in channelBWs-DL starting from the leftmost bit indicate 5, 10, 15, 20, 25, 30, 40, 50,
         60 and 80MHz</p>
-    <p><b>● Wireshark "Expand All", and Paste the NR UeCapabilityInformation below(Including "channelBWs"):</b>    </p>
+    <p><b>● Open f1_tcp.pcap with Wireshark, search for "supportedBandListNR", right-click "Expand Subtrees", right-click "Copy->All Visiable Selected Tree Items", paste it below, and parse:</b>    </p>
     <textarea id="inputText" rows="10" cols="70" placeholder="Paste your text here"></textarea><br>
     <button onclick="parseText()">Parse Text</button>
     <pre id="output"></pre>

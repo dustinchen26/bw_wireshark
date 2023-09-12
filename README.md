@@ -13,7 +13,7 @@ online calculator: https://dustinchen26.github.io/bw_wireshark
 ```
 
 ## Example input
-● Paste the UeCapabilityInformation below(it only process Rule1, the Rule 2,3,4 should check by yourself)
+● Open f1_tcp.pcap with Wireshark, search for "supportedBandListNR", right-click "Expand Subtrees", right-click "Copy->All Visiable Selected Tree Items", paste it below, and parse
 ```
 bandNR: 48
 channelBWs-DL: fr1 (0)
